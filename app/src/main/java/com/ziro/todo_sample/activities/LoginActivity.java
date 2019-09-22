@@ -46,8 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         setTitle("Login");
         initViews();
-
-        firebaseAnalytics=FirebaseAnalytics.getInstance(this);
+        firebaseAnalytics=FirebaseAnalytics.getInstance(this); //creating Firebase Analytics instance
 
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
@@ -163,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, TO_DO_MainActivity.class);
                 startActivity(intent);
                 finish();
-                firebaseAnalytics.logEvent("Skip",paBundle);
+                firebaseAnalytics.logEvent("Skip",paBundle); //sending firebase event
                 break;
         }
     }
