@@ -1,9 +1,9 @@
 package com.ziro.todo_sample.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +15,6 @@ import com.ziro.todo_sample.DataBaseClient;
 import com.ziro.todo_sample.R;
 import com.ziro.todo_sample.Utils.UtilClass;
 import com.ziro.todo_sample.models.ToDo;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class ADD_TO_DO_Fragment extends Fragment implements View.OnClickListener {
     EditText etTitle, etDesc;

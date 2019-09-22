@@ -11,4 +11,5 @@
     <string name="facebook_app_id">1354782158021657</string>
     <string name="fb_login_protocol_scheme">fb1354782158021657</string>
     <string name="skip_to_login">Skip to Login</string>
+    <string name="goto_todo">Go to Todo Page</string>
 </resources>

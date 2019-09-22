@@ -1,6 +1,6 @@
 package com.ziro.todo_sample;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 
 public class DataBaseClient {

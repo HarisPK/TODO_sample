@@ -2,17 +2,17 @@ package com.ziro.todo_sample.activities;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -22,6 +22,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ziro.todo_sample.R;
 
 import org.json.JSONException;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CircleImageView ivLogin;
     Button btnSkip;
     private CallbackManager callbackManager;
+    FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         setTitle("Login");
         initViews();
+
+        firebaseAnalytics=FirebaseAnalytics.getInstance(this);
+
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -54,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onCancel() {
-
             }
 
             @Override
@@ -77,6 +81,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 tvEmail.setText("");
                 tvLoginName.setText("");
                 ivLogin.setImageResource(0);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleSkipButtonColor();
+                    }
+                },1000);
                 Toast.makeText(LoginActivity.this, "User Logged Out", Toast.LENGTH_SHORT).show();
             } else {
                 loadUserProfile(currentAccessToken);
@@ -89,24 +99,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    String firstName = object.getString("first_name");
-                    String lastName = object.getString("last_name");
-                    String email = object.getString("email");
-                    String id = object.getString("id");
-                    String imageUrl = "https://graph.facebook.com/" + id + "/picture?type=normal";
-                    tvLoginName.setText(firstName + " " + lastName);
-                    tvEmail.setText(email);
-                    Glide.with(LoginActivity.this)
-                            .load(imageUrl).centerCrop().into(ivLogin);
+                    String firstName = "";
+                    String lastName = "";
+                    String email = "";
+                    String id = "";
+                    if (object != null) {
+                        if (!object.getString("first_name").isEmpty())
+                            firstName = object.getString("first_name");
+                        if (!object.getString("first_name").isEmpty())
+                            lastName = object.getString("last_name");
+                        if (!object.getString("first_name").isEmpty())
+                            email = object.getString("email");
+                        if (!object.getString("first_name").isEmpty()) {
+                            id = object.getString("id");
+                            String imageUrl = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent=new Intent(LoginActivity.this,TO_DO_MainActivity.class);
-                            startActivity(intent);
+                            Glide.with(LoginActivity.this)
+                                    .load(imageUrl).centerCrop().into(ivLogin);
+                            handleSkipButtonColor();
                         }
-                    },2000);
-
+                        tvLoginName.setText(firstName + " " + lastName);
+                        tvEmail.setText(email);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -126,17 +140,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvEmail = findViewById(R.id.tv_login_email);
         ivLogin = findViewById(R.id.profile_image);
         btnSkip = findViewById(R.id.btn_skip);
-
+        handleSkipButtonColor();
         btnSkip.setOnClickListener(this);
+    }
+
+    private void handleSkipButtonColor() {
+        if (loginButton.getText().toString().equals("Log out")) {
+            btnSkip.setText(getResources().getString(R.string.goto_todo));
+            btnSkip.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        } else {
+            btnSkip.setText(getResources().getString(R.string.skip_to_login));
+            btnSkip.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+        }
     }
 
     @Override
     public void onClick(View view) {
+        Bundle paBundle=new Bundle();
+        paBundle.putString("FirebaseTrackButton","Skip Button Clicked");
         switch (view.getId()) {
             case R.id.btn_skip:
                 Intent intent = new Intent(this, TO_DO_MainActivity.class);
                 startActivity(intent);
                 finish();
+                firebaseAnalytics.logEvent("Skip",paBundle);
                 break;
         }
     }

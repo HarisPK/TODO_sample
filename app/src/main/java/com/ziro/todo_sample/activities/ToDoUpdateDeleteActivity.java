@@ -1,12 +1,11 @@
 package com.ziro.todo_sample.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ziro.todo_sample.DataBaseClient;
 import com.ziro.todo_sample.R;
