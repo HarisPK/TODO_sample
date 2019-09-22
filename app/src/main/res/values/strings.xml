@@ -7,4 +7,8 @@
     <string name="add_to_do">Add To Do</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+
+    <string name="facebook_app_id">1354782158021657</string>
+    <string name="fb_login_protocol_scheme">fb1354782158021657</string>
+    <string name="skip_to_login">Skip to Login</string>
 </resources>
