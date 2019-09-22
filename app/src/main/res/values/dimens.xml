@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_8dp">8dp</dimen>
+
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_26sp">26sp</dimen>
+    <dimen name="text_size_32sp">32sp</dimen>
+
+    <dimen name="button_size_36dp">36dp</dimen>
+</resources>

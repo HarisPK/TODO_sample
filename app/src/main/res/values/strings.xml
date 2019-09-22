@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TODO_sample</string>
+    <string name="ziro_to_do">ZIRO TO-DO</string>
+    <string name="to_do_lists_title">To Do Lists</string>
+    <string name="to_do_hint">Enter To Do Title</string>
+    <string name="to_do_desc_hint">Enter To Do Description</string>
+    <string name="add_to_do">Add To Do</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+</resources>

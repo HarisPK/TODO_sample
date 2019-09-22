@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/button_size_36dp"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/to_do_hint"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="@color/cardview_shadow_start_color"
+        android:textSize="@dimen/text_size_26sp" />
+    <EditText
+        android:id="@+id/et_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/to_do_desc_hint"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="@color/cardview_shadow_start_color"
+        android:textSize="@dimen/text_size_18sp" />
+    <Button
+        android:id="@+id/btn_add_to_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_to_do" />
+
+</LinearLayout>
